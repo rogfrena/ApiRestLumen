@@ -20,3 +20,5 @@ $router->get('/', function () use ($router) {
 $router->get('/key', function () {
     return  bin2hex(openssl_random_pseudo_bytes(16));
 });  
+
+$router->get('/users', ['uses' => 'UsersController@index']);

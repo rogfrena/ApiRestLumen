@@ -25,7 +25,7 @@ $app = new Laravel\Lumen\Application(
 
 // $app->withFacades();
 
-// $app->withEloquent();
+ $app->withEloquent(); // para activar el manejo de la base de datos
 
 /*
 |--------------------------------------------------------------------------
