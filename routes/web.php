@@ -15,4 +15,8 @@
 
 $router->get('/', function () use ($router) {
     return $router->app->version();
-});
+}); 
+
+$router->get('/key', function () {
+    return  bin2hex(openssl_random_pseudo_bytes(16));
+});  
