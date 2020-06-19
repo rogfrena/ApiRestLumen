@@ -13,6 +13,11 @@
 |
 */
 
+
+
+//esta ruta es para autenticar un usuario al entrar al login
+$router->post('/users/login', ['uses' => 'UsersController@getToken']);
+
 $router->get('/', function () use ($router) {
     return $router->app->version();
 }); 
@@ -21,4 +26,7 @@ $router->get('/key', function () {
     return  bin2hex(openssl_random_pseudo_bytes(16));
 });  
 
-$router->get('/users', ['uses' => 'UsersController@index']);
+$router->group(['middleware' => ['auth']], function () use ($router){
+    $router->get('/users', ['uses' => 'UsersController@index']);
+    $router->post('/users', ['uses' => 'UsersController@createUser']);
+}); 

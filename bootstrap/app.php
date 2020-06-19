@@ -23,7 +23,7 @@ $app = new Laravel\Lumen\Application(
     dirname(__DIR__)
 );
 
-// $app->withFacades();
+ $app->withFacades(); // fachadas activar para el guardado de datos en la BD    
 
  $app->withEloquent(); // para activar el manejo de la base de datos
 
@@ -76,9 +76,10 @@ $app->configure('app');
 //     App\Http\Middleware\ExampleMiddleware::class
 // ]);
 
-// $app->routeMiddleware([
-//     'auth' => App\Http\Middleware\Authenticate::class,
-// ]);
+// AQUI ACTIVAMOS EL MIDDLEWARE DE AUTENTICACION DE USUARIOS.
+ $app->routeMiddleware([
+     'auth' => App\Http\Middleware\Authenticate::class,
+ ]);
 
 /*
 |--------------------------------------------------------------------------
@@ -92,7 +93,8 @@ $app->configure('app');
 */
 
 // $app->register(App\Providers\AppServiceProvider::class);
-// $app->register(App\Providers\AuthServiceProvider::class);
+//AQUI SE ACTICA EL SERVER PROVIDER DE AUTETICACION
+$app->register(App\Providers\AuthServiceProvider::class); //ACTIVAR PROVEEDOR PARA EL USO DEL AUTENTICADOR
 // $app->register(App\Providers\EventServiceProvider::class);
 
 /*
