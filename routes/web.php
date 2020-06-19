@@ -20,13 +20,17 @@ $router->post('/users/login', ['uses' => 'UsersController@getToken']);
 
 $router->get('/', function () use ($router) {
     return $router->app->version();
-}); 
-
+});
+// es una funcion q se creo para obtener una cadena de caracteres para el key env
 $router->get('/key', function () {
     return  bin2hex(openssl_random_pseudo_bytes(16));
-});  
+});
 
 $router->group(['middleware' => ['auth']], function () use ($router){
-    $router->get('/users', ['uses' => 'UsersController@index']);
-    $router->post('/users', ['uses' => 'UsersController@createUser']);
-}); 
+    // $router->get('/users', ['uses' => 'UsersController@index']);
+    // $router->post('/users', ['uses' => 'UsersController@createUser']);
+});
+$router->post('/users', ['uses' => 'UsersController@createUser']);
+$router->get('/users', ['uses' => 'UsersController@index']);
+$router->put('/users/{id}', ['uses' => 'UsersController@updateUser']);
+$router->delete('/users/{id}', ['uses' => 'UsersController@deleteUser']);

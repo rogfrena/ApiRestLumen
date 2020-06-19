@@ -61,4 +61,41 @@ class UsersController extends Controller
         return response()->json(['error'=> 'Unauthorized'], 401 , []);
 
     }
+
+    function updateUser(Request $request, $id){
+
+        if ($request->isJson()) {
+            try {
+                $user = User::findOrFail($id);
+                $data = $request->json()->all();
+
+                $user->name = $data['name'];
+                $user->username = $data['username'];
+                $user->email = $data['email'];
+                $user->password = Hash::make( $data['password'] );
+
+                $user->save();
+                return response()->json($user, 200);
+            } catch (ModelNotFoundException $e) {
+                return response()->json(['error' => 'No Content'], 406);
+            }
+        }else{
+            return response()->json(['error' => 'Unauthorized'], 401, []);
+        }
+    }
+
+    function deleteUser(Request $request, $id){
+
+        if ($request->isJson()) {
+            try{
+                $user = User::findOrFail($id);
+                $user->delete();
+                return response()->json($user, 200);
+            }catch(ModelNotFoundException $e){
+                return response()->json(['error' => 'No Content'], 406);
+            }
+        }else{
+            return response()->json(['error' => 'Unauthorized'], 401, []);
+        }
+    }
 }
